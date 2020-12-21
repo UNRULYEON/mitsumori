@@ -13,7 +13,8 @@
     "build:dev": "npx tsc"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nedb": "^1.8.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.9",
