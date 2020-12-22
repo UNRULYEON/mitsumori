@@ -1,0 +1,13 @@
+header {
+  width: 100%;
+  max-width: $max-width;
+  margin: 30px auto;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  padding: 0 $container-default-padding;
+
+  #name {
+    margin-left: 10px;
+  }
+}

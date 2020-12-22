@@ -1,0 +1,23 @@
+footer {
+  width: 100%;
+  max-width: $max-width;
+  margin: 10px auto;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0 $container-default-padding;
+
+  #footer-github-logo {
+    height: 32px;
+    width: auto;
+  }
+
+  .footer-divider {
+    background-color: #EBEBEB;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 12px;
+  }
+}

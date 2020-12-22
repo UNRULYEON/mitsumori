@@ -1,0 +1,17 @@
+html, body, #root {
+  width: 100%;
+  height: 100vh;
+}
+
+html, body {
+  padding: 0;
+  margin: 0;
+  font-family: $base-font-family;
+}
+
+.motion-div {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  height: 100vh;
+}
