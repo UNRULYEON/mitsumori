@@ -1,5 +1,5 @@
 footer {
-  width: 100%;
+  width: calc(100% - 48px);
   max-width: $max-width;
   margin: 10px auto;
   display: flex;
@@ -14,7 +14,7 @@ footer {
   }
 
   .footer-divider {
-    background-color: #EBEBEB;
+    background-color: #ebebeb;
     width: 10px;
     height: 10px;
     border-radius: 50%;

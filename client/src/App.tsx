@@ -1,17 +1,14 @@
-import {
-  Route,
-  Switch,
-  useHistory,
-} from "react-router-dom";
-import { AnimatePresence, motion } from 'framer-motion';
+import { Route, Switch, useHistory } from "react-router-dom"
+import { AnimatePresence, motion } from "framer-motion"
 import "./scss/main.scss"
 
-import Main from './pages/main'
-import { useSnackbar } from "notistack";
-import { useEffect } from "react";
-import { useRecoilValue, useRecoilState } from "recoil";
-import { Socket_RoomJoined, Socket_RoomMemberLeft } from "../../types";
-import { SocketState, UsersState } from "./state";
+import Main from "./pages/main"
+import Room from "./pages/room"
+import { useSnackbar } from "notistack"
+import { useEffect } from "react"
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil"
+import { Socket_RoomDeckChange, Socket_RoomJoined, Socket_RoomMemberLeft, Socket_RoomMemberUpdated, Socket_RoomMemberVoted, Socket_RoomResetti } from "../../types"
+import { DecksState, DeckState, SocketState, UsersState, UserState } from "./state"
 
 type Routes = {
   path: string | string[]
@@ -20,8 +17,8 @@ type Routes = {
 }
 
 const routes: Routes[] = [
-  { path: ['/room/:room_id'], exact: true, Component: () =>  <>In room</> },
-  { path: ['/'], Component: () => <Main /> },
+  { path: ["/room/:room_id"], exact: true, Component: () => <Room /> },
+  { path: ["/"], Component: () => <Main /> },
 ]
 
 function App() {
@@ -34,56 +31,85 @@ function App() {
     in: { opacity: 1 },
     out: { opacity: 0 },
   }
-  
-  const [ users, setUsers ] = useRecoilState(UsersState)
+
+  const [ user, setUser ] = useRecoilState(UserState)
+  const setUsers = useSetRecoilState(UsersState)
+  const setDecks = useSetRecoilState(DecksState)
+  const setDeck = useSetRecoilState(DeckState)
 
   useEffect(() => {
-    socket.on('room-created', (room_code: string) => {
-      enqueueSnackbar('Room has been created.')
+    socket.on("room-created", (room_code: string) => {
+      enqueueSnackbar("Room has been created.")
       history.push(`/room/${room_code}`)
     })
 
-    socket.on('room-joined', (room_code: string) => {
+    socket.on("room-joined", (room_code: string) => {
       enqueueSnackbar(`You've joined the room.`)
+      setUser({ ...user, room_code })
       history.push(`/room/${room_code}`)
     })
 
-    socket.on('member-joined', (payload: Socket_RoomJoined) => {
+    socket.on("member-joined", (payload: Socket_RoomJoined) => {
       enqueueSnackbar(`${payload.new_member.name} has joined the room.`)
       setUsers(payload.members)
+      setDeck(payload.deck)
+      setDecks(payload.decks)
       console.log(payload)
     })
 
-    socket.on('member-left', (payload: Socket_RoomMemberLeft) => {
-      console.log(payload)
+    socket.on("member-left", (payload: Socket_RoomMemberLeft) => {
       enqueueSnackbar(`${payload.member_that_left.name} has left the room.`)
-      setUsers(payload.members)
+      setUsers(payload.members.sort((a, b) => a.is_observer === b.is_observer ? 0 : a.is_observer ? 1 : -1))
     })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    socket.on('member-updated', (payload: Socket_RoomMemberUpdated) => {
+      setUsers(payload.members.sort((a, b) => a.is_observer === b.is_observer ? 0 : a.is_observer ? 1 : -1))
+    })
+
+    socket.on('member-voted', (payload: Socket_RoomMemberVoted) => {
+      setUsers(payload.members.sort((a, b) => a.is_observer === b.is_observer ? 0 : a.is_observer ? 1 : -1))
+    })
+
+    socket.on('deck-change', (payload: Socket_RoomDeckChange) => {
+      setUsers(payload.members.sort((a, b) => a.is_observer === b.is_observer ? 0 : a.is_observer ? 1 : -1))
+      setDeck(payload.deck)
+      setUser({ ...user, room_code: payload.room_code, vote: '' })
+    })
+
+    socket.on('round-resetted', (payload: Socket_RoomResetti) => {
+      enqueueSnackbar(`Round has been resetted.`)
+      setUsers(payload.members.sort((a, b) => a.is_observer === b.is_observer ? 0 : a.is_observer ? 1 : -1))
+      setUser({ ...user, room_code: payload.room_code, vote: '' })
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return (<>
-    <Route render={({ location }) => (
-      <AnimatePresence exitBeforeEnter initial={true}>
-        <Switch location={location} key={`${location.pathname}`}>
-          {routes.map(({ path, exact, Component }, key) => (
-            <Route key={key} exact={exact} path={path}>
-              <motion.div
-                className="motion-div"
-                initial="initial"
-                animate="in"
-                exit="out"
-                variants={MotionVariantsRoute}
-                transition={{ ease: "easeInOut", duration: .2 }}
-              >
-                <Component />
-              </motion.div>
-            </Route>
-          ))}
-        </Switch>
-      </AnimatePresence>
-    )} />
-  </>)
+  return (
+    <>
+      <Route
+        render={({ location }) => (
+          <AnimatePresence exitBeforeEnter initial={true}>
+            <Switch location={location} key={`${location.pathname}`}>
+              {routes.map(({ path, exact, Component }, key) => (
+                <Route key={key} exact={exact} path={path}>
+                  <motion.div
+                    className="motion-div"
+                    initial="initial"
+                    animate="in"
+                    exit="out"
+                    variants={MotionVariantsRoute}
+                    transition={{ ease: "easeInOut", duration: 0.2 }}
+                  >
+                    <Component />
+                  </motion.div>
+                </Route>
+              ))}
+            </Switch>
+          </AnimatePresence>
+        )}
+      />
+    </>
+  )
 }
 
 export default App

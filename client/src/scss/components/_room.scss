@@ -1,0 +1,267 @@
+#room {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+
+  #header,
+  #deck,
+  #members {
+    width: 100%;
+  }
+
+  #header {
+    padding: 24px 0;
+    background-color: rgba(235, 235, 235, 0.6);
+
+    @include media('<530px') {
+      padding: 12px 0;
+    }
+
+    > .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto;
+      grid-template-areas: "code name room_settings";
+      align-items: center;
+      width: calc(100% - 48px);
+      padding: 0 $container-default-padding;
+
+      @include media('<530px') {
+        grid-template-columns: 1fr 12px 1fr;
+        grid-template-rows: 40px 12px auto 12px;
+        grid-template-areas:
+          'code code code'
+          '. . .'
+          'name . room_settings'
+          '. . .';
+        justify-content: center;
+      }
+
+      #room-code-container {
+        grid-area: code;
+        font-weight: bold;
+
+        @include media('<650px') {
+          width: 100px;
+        }
+
+        @include media('<530px') {
+          width: auto;
+          text-align: center;
+        }
+      }
+
+      #name-container {
+        grid-area: name;
+      }
+
+      #room-settings-container {
+        grid-area: room_settings;
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  #deck {
+    background-color: rgba(235, 235, 235, 0.3);
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 68px 1fr;
+    grid-template-areas:
+      "name_and_kind"
+      "deck";
+
+    > .container {
+      grid-area: name_and_kind;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr;
+      grid-template-areas: "deck_name change_kind .";
+      align-items: center;
+      width: calc(100% - 48px);
+      padding: 0 $container-default-padding;
+
+      @include media('<630px') {
+        grid-template-areas: "deck_name change_kind change_kind";
+      }
+
+      #deck-name-container {
+        grid-area: deck_name;
+      }
+
+      #change-kind-container {
+        grid-area: change_kind;
+        display: flex;
+        justify-content: center;
+
+        @include media('<630px') {
+          justify-content: flex-end;
+        }
+      }
+
+      #observer-text-container {
+        grid-area: cards;
+      }
+    }
+
+    .deck-container-wrapper {
+      grid-area: deck;
+      overflow: auto;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    
+      .deck-container {
+        grid-area: deck;
+        display: flex;
+        flex-flow: row;
+        overflow: auto;
+        margin: 0 24px 24px 24px;
+  
+        .card-container {
+          display: inline-flex;
+          margin-right: 16px;
+          min-width: 83px;
+          height: 126px;
+          background-color: #ebebeb;
+          border: 1px solid rgba(0, 0, 0, 0.12);
+          border-radius: 5px;
+          justify-content: center;
+          align-items: center;
+          font-weight: bold;
+          font-size: 30px;
+          cursor: pointer;
+          transition: .2s ease-in-out all;
+        }
+  
+        .card-container.voted {
+          color: #66bb6a;
+          border: 1px solid #66bb6a;
+          background-color: rgba(102, 187, 106, .12);
+          transition: .2s ease-in-out all;
+        }
+  
+        .card-container:last-child {
+          margin-right: 0;
+        }
+
+        .deck-loading {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  #members {
+    flex-grow: 1;
+
+    > .container {
+      display: flex;
+      flex-flow: column;
+      width: calc(100% - 48px);
+      padding: 0 $container-default-padding;
+
+      #reset-button {
+        margin: 24px 0;
+        display: flex;
+        justify-content: center;
+      }
+
+      .members-container {
+        display: grid;
+        grid-auto-flow: row;
+        grid-template-columns: repeat(6, auto);
+        grid-template-rows: auto;
+        gap: 24px;
+
+        @include media('<690px') {
+          grid-template-columns: repeat(5, auto);
+        }
+
+        @include media('<570px') {
+          grid-template-columns: repeat(4, auto);
+          gap: 12px;
+        }
+
+        @include media('<440px') {
+          grid-template-columns: repeat(3, auto);
+        }
+
+        @include media('<340px') {
+          grid-template-columns: repeat(2, auto);
+        }
+
+        .member-container {
+          display: inline-flex;
+          flex-flow: column;
+          align-items: center;
+          margin-bottom: 24px;
+
+          .member-card {
+            display: flex;
+            min-width: 83px;
+            height: 126px;
+            border-radius: 5px;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 30px;
+            transition: .2s ease-in-out all;
+          }
+
+          .member-card.visible {
+            background-color: #ebebeb;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            transition: .2s ease-in-out all;
+          }
+
+          .member-card.not-voted {
+            color: #EF5350;
+            border: 1px solid #EF5350;
+            background-color: rgba(239, 83, 80, .12);
+            transition: .2s ease-in-out all;
+          }
+
+          .member-card.voted {
+            color: #66bb6a;
+            border: 1px solid #66bb6a;
+            background-color: rgba(102, 187, 106, .12);
+            transition: .2s ease-in-out all;
+          }
+  
+          .member-name {
+            margin-top: 12px;
+            font-weight: 600;
+            font-size: 16px;
+          }
+        }
+      }
+
+      .members-empty-state {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        .link {
+          font-size: 1.2em;
+          padding: 10px 20px;
+          border: 2px solid rgba(0, 0, 0, 0.12);
+          border-radius: 5px;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  .container {
+    width: 100%;
+    height: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}

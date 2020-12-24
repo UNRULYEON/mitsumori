@@ -1,0 +1,8 @@
+name: mitsumori
+services:
+- dockerfile_path: Dockerfile
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: UNRULYEON/mitsumori
+  name: mitsumori

@@ -8,11 +8,11 @@
   .dialog-content {
     display: flex;
     flex-flow: column;
-  
+
     > * {
       margin-bottom: 12px !important;
     }
-  
+
     > *:last-child {
       margin-bottom: 0 !important;
     }
@@ -23,11 +23,11 @@
     flex-flow: row;
     align-items: stretch;
     margin-top: 24px;
-  
+
     > * {
       margin-right: 12px !important;
     }
-  
+
     > *:last-child {
       margin-right: 0 !important;
     }

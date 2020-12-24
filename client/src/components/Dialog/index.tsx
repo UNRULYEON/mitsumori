@@ -1,5 +1,5 @@
-import React from 'react'
-import { Dialog as MuiDialog } from '@material-ui/core'
+import React from "react"
+import { Dialog as MuiDialog } from "@material-ui/core"
 
 type DialogProps = {
   open: boolean
@@ -17,10 +17,10 @@ const Dialog = (props: DialogProps) => {
 
   return (
     <MuiDialog onClose={onClose} open={open}>
-      <div className="dialog-content">
-        {content()}
-      </div>
-      {actions && <div className="dialog-actions">{actions({ onClose: onClose })}</div>}
+      <div className="dialog-content">{content()}</div>
+      {actions && (
+        <div className="dialog-actions">{actions({ onClose: onClose })}</div>
+      )}
     </MuiDialog>
   )
 }

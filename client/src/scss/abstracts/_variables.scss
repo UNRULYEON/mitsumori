@@ -4,21 +4,21 @@ $br-lg: 1024px;
 $br-xl: 1280px;
 
 $breakpoints: (
-  'sm': $br-sm,
-  'md': $br-md,
-  'lg': $br-lg,
-  'xl': $br-xl,
+  "sm": $br-sm,
+  "md": $br-md,
+  "lg": $br-lg,
+  "xl": $br-xl,
 );
 
-$base-font-family: 'Quicksand', 'Roboto', Arial;
+$base-font-family: "Quicksand", "Roboto", Arial;
 $max-width: 800px;
 $container-default-padding: 24px;
 
-$border-color-dark: rgba(0, 0, 0, .24);
-$border-color-light: rgba(0, 0, 0, .12);
+$border-color-dark: rgba(0, 0, 0, 0.24);
+$border-color-light: rgba(0, 0, 0, 0.12);
 $border-radius: 6px;
 
 //Themes
 $theme-l-primary-color: #424242;
-$theme-l-accent-color: #EEEEEE;
+$theme-l-accent-color: #eeeeee;
 $theme-l-text-color: black;

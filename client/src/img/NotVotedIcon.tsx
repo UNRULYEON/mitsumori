@@ -1,0 +1,17 @@
+const NotVotedIcon = () => {
+  return (<svg xmlns="http://www.w3.org/2000/svg" width="40.974" height="40.974" viewBox="0 0 40.974 40.974">
+  <g id="Group_51" data-name="Group 51" transform="translate(1.031 1.031)">
+    <g id="how_to_vote-black-18dp">
+      <path id="Path_34" data-name="Path 34" d="M0,0H38.581V38.581H0Z" fill="none"/>
+      <path id="Path_35" data-name="Path 35" d="M16.407,22.931a1.6,1.6,0,0,0,2.267,0L28.9,12.707a1.6,1.6,0,0,0,0-2.267L20.94,2.483a1.568,1.568,0,0,0-2.251-.016L8.45,12.707a1.6,1.6,0,0,0,0,2.267ZM19.815,5.875l5.691,5.691-7.957,7.957-5.691-5.691,7.957-7.957ZM30.988,23.558,27.58,20.15a1.622,1.622,0,0,0-1.125-.466H26.02L22.805,22.9h3.07l2.845,3.215H6.215L9.077,22.9h3.3L9.157,19.684H8.482a1.66,1.66,0,0,0-1.141.466L3.932,23.558A3.278,3.278,0,0,0,3,25.841v5.1a3.225,3.225,0,0,0,3.215,3.215H28.721a3.214,3.214,0,0,0,3.215-3.215v-5.1A3.225,3.225,0,0,0,30.988,23.558Z" transform="translate(1.823 1.214)" fill="#ef5350"/>
+    </g>
+    <g id="Rectangle_18" data-name="Rectangle 18" transform="translate(1.798 34.688) rotate(-45)" fill="#ef5350" stroke="#fdeaea" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
+      <rect width="46.515" height="3.431" rx="1.716" stroke="none"/>
+      <rect x="-1" y="-1" width="48.515" height="5.431" rx="2.716" fill="none"/>
+    </g>
+  </g>
+</svg>
+)
+}
+
+export default NotVotedIcon

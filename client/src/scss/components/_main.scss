@@ -1,12 +1,12 @@
 main {
-  width: 100%;
+  width: calc(100% - 48px);
   max-width: $max-width;
   margin: 0 auto;
   padding: 0 $container-default-padding;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
-  grid-template-areas: 'cta actions';
+  grid-template-areas: "cta actions";
   flex-flow: row;
   flex-grow: 1;
   align-items: center;

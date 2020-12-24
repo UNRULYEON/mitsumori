@@ -1,12 +1,19 @@
-html, body, #root {
+html,
+body,
+#root {
   width: 100%;
   height: 100vh;
 }
 
-html, body {
+html,
+body {
   padding: 0;
   margin: 0;
   font-family: $base-font-family;
+}
+
+h1 {
+  font-size: 1.8em;
 }
 
 .motion-div {
@@ -14,4 +21,13 @@ html, body {
   flex-flow: column;
   width: 100%;
   height: 100vh;
+}
+
+.formatted-code {
+  display: inline-flex;
+  margin-right: 6px;
+}
+
+.formatted-code:last-child {
+  margin-right: 0;
 }

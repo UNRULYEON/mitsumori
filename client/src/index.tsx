@@ -1,8 +1,8 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import { BrowserRouter } from 'react-router-dom';
-import { RecoilRoot } from "recoil";
-import { SnackbarProvider } from 'notistack';
+import { BrowserRouter } from "react-router-dom"
+import { RecoilRoot } from "recoil"
+import { SnackbarProvider } from "notistack"
 import App from "./App"
 import reportWebVitals from "./reportWebVitals"
 
@@ -11,7 +11,7 @@ ReactDOM.render(
     <RecoilRoot>
       <BrowserRouter>
         <SnackbarProvider maxSnack={3}>
-            <App />
+          <App />
         </SnackbarProvider>
       </BrowserRouter>
     </RecoilRoot>
