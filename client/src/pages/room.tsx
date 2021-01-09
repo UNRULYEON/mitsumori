@@ -180,10 +180,6 @@ const Room = () => {
           </div>) : (<div className="members-empty-state">
             <h1>Invite other members from your team with this link</h1>
             <span className="link">{window.location.protocol}//{window.location.hostname}{window.location.pathname}</span>
-            <h1>or tell them to go to</h1>
-            <span className="link">{window.location.protocol}//{window.location.hostname}</span>
-            <h1>and enter this code</h1>
-            <span className="link">{getFormattedRoomCode(room_id)}</span>
           </div>)}
         </div>
       </div>
