@@ -195,10 +195,6 @@ const Room = () => {
             alt="repository-of-mitsumori"
           />
         </a>
-        <div className="footer-divider" />
-        <Button variant="text">About</Button>
-        <div className="footer-divider" />
-        <Button variant="text">Language</Button>
       </footer>
       <Dialog
         open={roomSettingsDialog}

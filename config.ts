@@ -8,7 +8,7 @@ const config: Config = {
       name: 'Fibonacci',
       cards: [
         { value: '0', numeric_value: 0 },
-        { value: '1/2', numeric_value: 0.5 },
+        { value: '½', numeric_value: 0.5 },
         { value: '1', numeric_value: 1 },
         { value: '2', numeric_value: 2 },
         { value: '3', numeric_value: 3 },
@@ -27,7 +27,7 @@ const config: Config = {
       name: 'Original Fibonacci',
       cards: [
         { value: '0', numeric_value: 0 },
-        { value: '1/2', numeric_value: 0.5 },
+        { value: '½ ', numeric_value: 0.5 },
         { value: '1', numeric_value: 1 },
         { value: '2', numeric_value: 2 },
         { value: '3', numeric_value: 3 },
