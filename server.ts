@@ -26,12 +26,16 @@ const rooms = db.addCollection<DB_Room>("room");
 const port = process.env.PORT || 8000;
 
 const getDefaultDeck = () => {
-  let deckIndex = config.decks.findIndex((d) => d.name === config.default_deck);
-  if (deckIndex !== -1) {
-    return config.decks[deckIndex];
+  if (config.decks.length > 0) {
+    let deckIndex = config.decks.findIndex((d) => d.name === config.default_deck);
+    if (deckIndex !== -1) {
+      return config.decks[deckIndex];
+    } else {
+      console.log(`Default deck ${config.default_deck} doesn't exist.`);
+      return config.decks[0];
+    }
   } else {
-    console.log(`Default deck ${config.default_deck} doesn't exist.`);
-    return config.decks[0];
+    throw Error("No decks in config!")
   }
 };
 
@@ -46,11 +50,9 @@ app.get("/health", (_, res) => res.sendStatus(200));
 io.on("connection", (socket: Socket) => {
   // Create a room
   socket.on("create-room", (new_user: User) => {
-    if (process.env.NODE_ENV === "development") {
-      console.log("[CREATING ROOM]");
-      console.log(new_user);
-      console.log();
-    }
+    console.log("[CREATING ROOM]");
+    console.log(new_user);
+    console.log();
 
     let user: DB_User = {
       ...new_user,
@@ -74,11 +76,9 @@ io.on("connection", (socket: Socket) => {
 
   // Join a room
   socket.on("join-room", (new_user: User) => {
-    if (process.env.NODE_ENV === "development") {
-      console.log("[JOINING ROOM]");
-      console.log(new_user);
-      console.log();
-    }
+    console.log("[JOINING ROOM]");
+    console.log(new_user);
+    console.log();
 
     let user: DB_User = {
       ...new_user,
@@ -109,11 +109,9 @@ io.on("connection", (socket: Socket) => {
 
   // Join a room without confirmation
   socket.on("join-room-no-confirmation", (new_user: User) => {
-    if (process.env.NODE_ENV === "development") {
-      console.log("[JOINING ROOM - NO CONFIRMATION]");
-      console.log(new_user);
-      console.log();
-    }
+    console.log("[JOINING ROOM - NO CONFIRMATION]");
+    console.log(new_user);
+    console.log();
 
     let user: DB_User = {
       ...new_user,
@@ -162,11 +160,9 @@ io.on("connection", (socket: Socket) => {
 
   // Update member
   socket.on("update-member", (updated_user: User) => {
-    if (process.env.NODE_ENV === "development") {
-      console.log("UPDATING MEMBER");
-      console.log(updated_user);
-      console.log();
-    }
+    console.log("UPDATING MEMBER");
+    console.log(updated_user);
+    console.log();
 
     let room = rooms.find({ room_code: updated_user.room_code });
 
@@ -191,11 +187,9 @@ io.on("connection", (socket: Socket) => {
 
   // Cast vote
   socket.on("cast-vote", (voted_user: User) => {
-    if (process.env.NODE_ENV === "development") {
-      console.log("[CASTING VOTE]");
-      console.log(voted_user);
-      console.log();
-    }
+    console.log("[CASTING VOTE]");
+    console.log(voted_user);
+    console.log();
 
     let room = rooms.find({ room_code: voted_user.room_code });
 
@@ -214,10 +208,8 @@ io.on("connection", (socket: Socket) => {
 
   // Change deck
   socket.on("change-deck", (data: ChangeDeck) => {
-    if (process.env.NODE_ENV === "development") {
-      console.log("[CHANGING DECK]");
-      console.log();
-    }
+    console.log("[CHANGING DECK]");
+    console.log();
 
     let room = rooms.find({ room_code: data.room_code });
 
@@ -239,10 +231,8 @@ io.on("connection", (socket: Socket) => {
 
   // Reset round
   socket.on("reset-round", (data: ResetRoom) => {
-    if (process.env.NODE_ENV === "development") {
-      console.log("[RESETTING ROUND]");
-      console.log();
-    }
+    console.log("[RESETTING ROUND]");
+    console.log();
 
     let room = rooms.find({ room_code: data.room_code });
 
