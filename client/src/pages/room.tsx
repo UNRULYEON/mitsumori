@@ -62,10 +62,12 @@ const Room = () => {
 
   const changeToObserver = () => {
     setUser({ ...user, vote: '', is_observer: true })
+    socket.emit('update-member', { ...user, is_observer: true, room_code: room_id })
   }
 
   const changeToPlayer = () => {
     setUser({ ...user, vote: '', is_observer: false })
+    socket.emit('update-member', { ...user, is_observer: false, room_code: room_id })
   }
 
   const castVote = (value: string) => {
