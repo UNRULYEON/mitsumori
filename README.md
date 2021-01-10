@@ -1,3 +1,9 @@
+### Submission for DigitalOcean App Platform Hackathon on DEV
+
+[Information about the hackathon](https://dev.to/devteam/announcing-the-digitalocean-app-platform-hackathon-on-dev-2i1k)
+
+[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/UNRULYEON/mitsumori/tree/main)
+
 ## What I built
 I've build a website where you and your team can play scrum poker when you can't meet in a physical place. It used websockets for realtime communication.
 
@@ -46,5 +52,3 @@ After I've build the app, I simply added docker support and went through the ste
 
 ### Additional Resources/Info
 If you'd like, you can modify the `config.ts` to add or modify existing decks and spin up your own `mitsumori`.
-
-[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/UNRULYEON/mitsumori/tree/main)
