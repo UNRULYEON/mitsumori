@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "mitsumori",
+  "name": "Online scrum poker for agile teams 🃏",
   "icons": [
     {
       "src": "favicon.ico",
