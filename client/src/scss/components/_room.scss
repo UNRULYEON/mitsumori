@@ -174,32 +174,33 @@
       .members-container {
         display: grid;
         grid-auto-flow: row;
-        grid-template-columns: repeat(6, auto);
+        grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
         grid-template-rows: auto;
-        gap: 24px;
+        gap: 30px;
 
-        @include media('<690px') {
-          grid-template-columns: repeat(5, auto);
-        }
+        // @include media('<690px') {
+        //   grid-template-columns: repeat(5, auto);
+        // }
 
-        @include media('<570px') {
-          grid-template-columns: repeat(4, auto);
-          gap: 12px;
-        }
+        // @include media('<570px') {
+        //   grid-template-columns: repeat(4, auto);
+        //   gap: 12px;
+        // }
 
-        @include media('<440px') {
-          grid-template-columns: repeat(3, auto);
-        }
+        // @include media('<440px') {
+        //   grid-template-columns: repeat(3, auto);
+        // }
 
-        @include media('<340px') {
-          grid-template-columns: repeat(2, auto);
-        }
+        // @include media('<340px') {
+        //   grid-template-columns: repeat(2, auto);
+        // }
 
         .member-container {
           display: inline-flex;
           flex-flow: column;
           align-items: center;
           margin-bottom: 24px;
+          max-width: 85px;
 
           .member-card {
             display: flex;
