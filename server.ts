@@ -71,7 +71,7 @@ io.on("connection", (socket: Socket) => {
 
     socket.join(user.room_code);
 
-    socket.emit("room-created", user.room_code);
+    socket.emit("room-created", { id: socket.id, room_code: user.room_code });
   });
 
   // Join a room
@@ -89,7 +89,6 @@ io.on("connection", (socket: Socket) => {
 
     if (existing_room.length > 0) {
       existing_room[0].members.push(user);
-
       rooms.update(existing_room);
     } else {
       let room: DB_Room = {
@@ -104,7 +103,17 @@ io.on("connection", (socket: Socket) => {
 
     socket.join(user.room_code);
 
-    socket.emit("room-joined", user.room_code);
+    let room = rooms.find({ room_code: user.room_code });
+
+    const payload: Socket_RoomJoined = {
+      room_code: room[0].room_code,
+      new_member: user,
+      members: room[0].members,
+      decks: [...config.decks],
+      deck: room[0].deck,
+    };
+
+    socket.emit("room-joined", payload);
   });
 
   // Join a room without confirmation
@@ -149,6 +158,7 @@ io.on("connection", (socket: Socket) => {
     let room = rooms.find({ room_code: user.room_code });
 
     const payload: Socket_RoomJoined = {
+      room_code: room[0].room_code,
       new_member: user,
       members: room[0].members,
       decks: [...config.decks],
@@ -193,6 +203,9 @@ io.on("connection", (socket: Socket) => {
 
     let room = rooms.find({ room_code: voted_user.room_code });
 
+    console.log(room[0])
+    console.log(room[0].members)
+
     let memberIndex = room[0].members.findIndex((m) => m.id === socket.id);
 
     room[0].members[memberIndex].vote = voted_user.vote;
@@ -232,11 +245,15 @@ io.on("connection", (socket: Socket) => {
   // Reset round
   socket.on("reset-round", (data: ResetRoom) => {
     console.log("[RESETTING ROUND]");
+    console.log(data)
     console.log();
 
     let room = rooms.find({ room_code: data.room_code });
 
-    room[0].members = room[0].members.map((m) => ({ ...m, vote: "" }));
+    room[0].members = room[0].members.map((m) => {
+      console.log(m)
+      return ({ ...m, vote: "" })
+    });
 
     rooms.update(room);
 
@@ -259,7 +276,7 @@ io.on("connection", (socket: Socket) => {
 
     let current_room: string = user_rooms[1];
 
-    if (process.env.NODE_ENV === "development") console.log(`${socket_id} left`);
+    console.log(`${socket_id} left`);
 
     let room = rooms.find({ room_code: current_room });
 
@@ -276,7 +293,11 @@ io.on("connection", (socket: Socket) => {
         members: room[0].members,
       };
 
-      io.in(current_room).emit("member-left", payload);
+      if (room[0].members.length > 0) {
+        io.in(current_room).emit("member-left", payload);
+      } else {
+        rooms.remove(room)
+      }
     }
   });
 

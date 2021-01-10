@@ -17,11 +17,12 @@ export type DB_Room = {
 }
 
 export type Socket_RoomCreated = {
-  new_member: User
-  members: User[]
+  id: string
+  room_code: string
 }
 
 export type Socket_RoomJoined = {
+  room_code: string
   new_member: User
   members: User[]
   deck: Deck

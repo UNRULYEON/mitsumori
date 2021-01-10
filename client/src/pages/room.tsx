@@ -46,11 +46,6 @@ const Room = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    socket.emit('update-member', { ...user, room_code: room_id })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ user.name, user.is_observer ])
-
   const handleClose = () => {
     setJoinRoomDialog(false)
     setRoomSettingsDialog(false)
@@ -74,12 +69,12 @@ const Room = () => {
   }
 
   const castVote = (value: string) => {
-    socket.emit('cast-vote', { ...user, vote: user.vote === value ? '' : value })
+    socket.emit('cast-vote', { ...user, room_code: room_id, vote: user.vote === value ? '' : value })
     setUser({ ...user, vote: user.vote === value ? '' : value })
   }
 
   const resetti = () => {
-    socket.emit('reset-round', { room_code: user.room_code })
+    socket.emit('reset-round', { room_code: room_id })
   }
 
   return (
@@ -97,6 +92,7 @@ const Room = () => {
               onChange={(e) => {
                 localStorage.setItem("name", e.target.value)
                 setUser({ ...user, name: e.target.value })
+                socket.emit('update-member', { ...user, name: e.target.value, room_code: room_id })
               }}
             />
           </div>

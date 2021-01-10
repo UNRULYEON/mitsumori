@@ -7,7 +7,7 @@ import Room from "./pages/room"
 import { useSnackbar } from "notistack"
 import { useEffect } from "react"
 import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil"
-import { Socket_RoomDeckChange, Socket_RoomJoined, Socket_RoomMemberLeft, Socket_RoomMemberUpdated, Socket_RoomMemberVoted, Socket_RoomResetti } from "../../types"
+import { Socket_RoomCreated, Socket_RoomDeckChange, Socket_RoomJoined, Socket_RoomMemberLeft, Socket_RoomMemberUpdated, Socket_RoomMemberVoted, Socket_RoomResetti } from "../../types"
 import { DecksState, DeckState, SocketState, UsersState, UserState } from "./state"
 
 type Routes = {
@@ -38,15 +38,15 @@ function App() {
   const setDeck = useSetRecoilState(DeckState)
 
   useEffect(() => {
-    socket.on("room-created", (room_code: string) => {
+    socket.on("room-created", (payload: Socket_RoomCreated) => {
       enqueueSnackbar("Room has been created.")
-      history.push(`/room/${room_code}`)
+      history.push(`/room/${payload.room_code}`)
     })
 
-    socket.on("room-joined", (room_code: string) => {
+    socket.on("room-joined", (payload: Socket_RoomJoined) => {
       enqueueSnackbar(`You've joined the room.`)
-      setUser({ ...user, room_code })
-      history.push(`/room/${room_code}`)
+      setUser({ ...user, room_code: payload.room_code })
+      history.push(`/room/${payload.room_code}`)
     })
 
     socket.on("member-joined", (payload: Socket_RoomJoined) => {
@@ -54,7 +54,6 @@ function App() {
       setUsers(payload.members)
       setDeck(payload.deck)
       setDecks(payload.decks)
-      console.log(payload)
     })
 
     socket.on("member-left", (payload: Socket_RoomMemberLeft) => {
@@ -77,9 +76,9 @@ function App() {
     })
 
     socket.on('round-resetted', (payload: Socket_RoomResetti) => {
-      enqueueSnackbar(`Round has been resetted.`)
+      enqueueSnackbar(`Round has been reset.`)
       setUsers(payload.members.sort((a, b) => a.is_observer === b.is_observer ? 0 : a.is_observer ? 1 : -1))
-      setUser({ ...user, room_code: payload.room_code, vote: '' })
+      setUser({ ...user, name: localStorage.getItem('name') || '', vote: '' })
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
