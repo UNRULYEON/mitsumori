@@ -8,6 +8,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  Tooltip,
 } from "@material-ui/core"
 import { useSnackbar } from "notistack"
 import React, { useEffect, useState } from "react"
@@ -20,6 +21,7 @@ import NotVotedIcon from '../img/NotVotedIcon'
 import VotedIcon from '../img/VotedIcon'
 import { getFormattedRoomCode } from '../utilities'
 import VisibilityRoundedIcon from '@material-ui/icons/VisibilityRounded';
+import HelpOutlineRoundedIcon from '@material-ui/icons/HelpOutlineRounded';
 
 const Room = () => {
   const socket = useRecoilValue(SocketState)
@@ -257,7 +259,7 @@ const Room = () => {
                   name="I'm an observer"
                 />
               }
-              label="I'm an observer"
+              label={<>I'm an observer <Tooltip title="You would likely be an observer if you're Project Manager or like to watch 😉"><HelpOutlineRoundedIcon fontSize="small" /></Tooltip></>}
             />
           </>
         )}

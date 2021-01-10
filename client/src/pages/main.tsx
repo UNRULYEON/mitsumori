@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import {
   Button,
   Checkbox,
   FormControlLabel,
   TextField,
+  Tooltip,
 } from "@material-ui/core"
 import Dialog from "../components/Dialog"
 import GithubLogo from "../img/github.png"
 import { SocketState, UserState } from "../state"
 import { useRecoilState, useRecoilValue } from "recoil"
+import HelpOutlineRoundedIcon from '@material-ui/icons/HelpOutlineRounded';
 
 const Main = () => {
   const [createRoomDialog, setCreateRoomDialog] = useState<boolean>(false)
@@ -109,7 +111,7 @@ const Main = () => {
                   name="I'm an observer"
                 />
               }
-              label="I'm an observer"
+              label={<>I'm an observer <Tooltip title="You would likely be an observer if you're Project Manager or like to watch 😉"><HelpOutlineRoundedIcon fontSize="small" /></Tooltip></>}
             />
           </>
         )}
@@ -164,8 +166,9 @@ const Main = () => {
                   name="I'm an observer"
                 />
               }
-              label="I'm an observer"
+              label={<>I'm an observer <Tooltip title="You would likely be an observer if you're Project Manager or like to watch 😉"><HelpOutlineRoundedIcon fontSize="small" /></Tooltip></>}
             />
+            
           </>
         )}
         actions={({ onClose }) => (
