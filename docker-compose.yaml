@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  mitsumori:
+    container_name: mitsumori
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 4002:8000
+    command: yarn start:prod
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.mitsumori.rule=Host(`mitsumori.app`)
+      - traefik.http.routers.mitsumori.tls=true
+      - traefik.http.routers.mitsumori.entrypoints=websecure
+      - traefik.http.routers.mitsumori.tls.certresolver=certresolver
+      - traefik.http.services.mitsumori.loadbalancer.server.port=4002
+
+networks:
+  default:
+    external:
+      name: traefik_default
