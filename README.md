@@ -10,9 +10,6 @@ I've build a website where you and your team can play scrum poker when you can't
 ### Category Submission: 
 This project belongs to the **Program for the People** category.
 
-### App Link
-https://mitsumori.app
-
 ### Screenshots
 ![mitsumori.app_home](https://dev-to-uploads.s3.amazonaws.com/i/mexihclzke4b5yep1yml.png)
 
